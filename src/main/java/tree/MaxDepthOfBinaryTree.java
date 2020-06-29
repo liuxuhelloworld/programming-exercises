@@ -2,6 +2,7 @@ package tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * problem link: https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/7/trees/47/
@@ -24,10 +25,30 @@ class TreeNode {
         this.right = right;
     }
 }
+
+class NodeForDFS {
+    TreeNode node;
+    int depth;
+
+    NodeForDFS(TreeNode node, int depth) {
+        this.node = node;
+        this.depth = depth;
+    }
+
+    TreeNode getNode() {
+        return node;
+    }
+
+    int getDepth() {
+        return depth;
+    }
+}
+
 public class MaxDepthOfBinaryTree {
     public static int maxDepth(TreeNode root) {
         //return maxDepthUsingRecursion(root);
-        return maxDepthUsingBFS(root);
+        //return maxDepthUsingBFS(root);
+        return maxDepthUsingDFS(root);
     }
 
     private static int maxDepthUsingRecursion(TreeNode node) {
@@ -58,6 +79,43 @@ public class MaxDepthOfBinaryTree {
                 }
                 if (cur.right != null) {
                     queue.add(cur.right);
+                }
+            }
+        }
+
+        return maxDepth;
+    }
+
+    private static int maxDepthUsingDFS(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int maxDepth = 0;
+
+        Stack<NodeForDFS> stack = new Stack<>();
+        NodeForDFS p = new NodeForDFS(node, 1);
+        stack.push(p);
+
+        TreeNode last = p.getNode();
+        while (!stack.isEmpty()) {
+            NodeForDFS current = stack.peek();
+
+            boolean hasChild = (current.getNode().left != null || current.getNode().right != null);
+
+            boolean hasVisitedAllChild = (last == current.getNode().right
+                || (last == current.getNode().left && current.getNode().right == null));
+
+            if (!hasChild || hasVisitedAllChild) {
+                current = stack.pop();
+                maxDepth = Math.max(maxDepth, current.getDepth());
+                last = current.getNode();
+            } else {
+                if (current.getNode().right != null) {
+                    stack.push(new NodeForDFS(current.getNode().right, current.getDepth()+1));
+                }
+                if (current.getNode().left != null) {
+                    stack.push(new NodeForDFS(current.getNode().left, current.getDepth()+1));
                 }
             }
         }
