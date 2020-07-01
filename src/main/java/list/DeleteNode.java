@@ -3,15 +3,6 @@ package list;
 /**
  * problem link: https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/6/linked-list/41/
  */
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-}
-
 public class DeleteNode {
     public void deleteNode(ListNode node) {
         if (node == null
