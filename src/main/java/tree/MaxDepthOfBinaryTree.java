@@ -4,28 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-/**
- * problem link: https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/7/trees/47/
- */
-
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    void setLeft(TreeNode left) {
-        this.left = left;
-    }
-
-    void setRight(TreeNode right) {
-        this.right = right;
-    }
-}
-
 class NodeForDFS {
     TreeNode node;
     int depth;
@@ -44,6 +22,9 @@ class NodeForDFS {
     }
 }
 
+/**
+ * problem link: https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/7/trees/47/
+ */
 public class MaxDepthOfBinaryTree {
     public static int maxDepth(TreeNode root) {
         //return maxDepthUsingRecursion(root);

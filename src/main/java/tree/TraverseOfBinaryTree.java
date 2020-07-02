@@ -5,11 +5,11 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class TraverseOfBinaryTree {
-    public void visit(TreeNode node) {
-        System.out.println(node);
+    public static void visit(TreeNode node) {
+        System.out.println(node.val);
     }
 
-    public void preOrderTraverse(TreeNode node) {
+    public static void preOrderTraverse(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -19,7 +19,7 @@ public class TraverseOfBinaryTree {
         preOrderTraverse(node.right);
     }
 
-    public void preOrderTraverseWithoutRecursion(TreeNode node) {
+    public static void preOrderTraverseWithoutRecursion(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -38,7 +38,7 @@ public class TraverseOfBinaryTree {
         }
     }
 
-    public void inOrderTraverse(TreeNode node) {
+    public static void inOrderTraverse(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -48,29 +48,25 @@ public class TraverseOfBinaryTree {
         inOrderTraverse(node.right);
     }
 
-    public void inOrderTraverseWithoutRecursion(TreeNode node) {
+    public static void inOrderTraverseWithoutRecursion(TreeNode node) {
         if (node == null) {
             return ;
         }
 
         Stack<TreeNode> stack = new Stack<>();
-        stack.push(node);
-        while (!stack.isEmpty()) {
-            TreeNode cur = stack.peek();
-            while (cur.left != null) {
-                cur = cur.left;
+        TreeNode cur = node;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
                 stack.push(cur);
+                cur = cur.left;
             }
             cur = stack.pop();
             visit(cur);
-            if (cur.right != null) {
-                cur = cur.right;
-                stack.push(cur);
-            }
+            cur = cur.right;
         }
     }
 
-    public void postOrderTraverse(TreeNode node) {
+    public static void postOrderTraverse(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -80,7 +76,7 @@ public class TraverseOfBinaryTree {
         visit(node);
     }
 
-    public void postOrderTraverseWithoutRecursion(TreeNode node) {
+    public static void postOrderTraverseWithoutRecursion(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -110,7 +106,7 @@ public class TraverseOfBinaryTree {
         }
     }
 
-    public void bfsTraverse(TreeNode node) {
+    public static void bfsTraverse(TreeNode node) {
         if (node == null) {
             return ;
         }
@@ -130,5 +126,27 @@ public class TraverseOfBinaryTree {
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(3);
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(5);
+        TreeNode node3 = new TreeNode(4);
+        TreeNode node4 = new TreeNode(6);
+
+        root.setLeft(node1);
+        root.setRight(node2);
+        node2.setLeft(node3);
+        node2.setRight(node4);
+
+        preOrderTraverse(root);
+        preOrderTraverseWithoutRecursion(root);
+        inOrderTraverse(root);
+        inOrderTraverseWithoutRecursion(root);
+        postOrderTraverse(root);
+        postOrderTraverseWithoutRecursion(root);
+        bfsTraverse(root);
+
     }
 }
